@@ -1,4 +1,7 @@
 import { getServerSession } from 'next-auth';
+import { Sidebar } from 'react-pro-sidebar';
+import ClientProvider from '../components/ClientProvider';
+import { Providers } from '../components/Providers';
 import { SessionProvider } from '../components/SessionProvider';
 import SideBar from '../components/SideBar';
 import { authOptions } from '../pages/api/auth/[...nextauth]';
@@ -21,16 +24,23 @@ export default async function RootLayout({
             {!session ? (
               <Login/>
             ) : (
-              <div className='flex'>
-              {/* Sidebar */}
-              <div className='bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem]'><SideBar/></div>
-              
+              <Providers>
+                <div className='flex'>
+                {/* Sidebar */}
+                
+                <SideBar/>
+                
 
-          
-            {/* ClientProvider - Notification */}
             
-            <div className='bg-[#343541] flex-1'>{children}</div>
-            </div>
+              {/* ClientProvider - Notification */}
+              <ClientProvider />
+            
+                <div className='bg-[#343541] flex-1'>{children}</div>
+            
+                
+            
+              </div>
+            </Providers>
             )}
             
           </SessionProvider>
